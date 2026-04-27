@@ -1,4 +1,4 @@
-# Max Plast ERP System
+# Metall Basa ERP System
 
 Qurilish mollari do'koni uchun to'liq ERP tizimi.
 
@@ -83,7 +83,7 @@ Armatura 17B:
 ```bash
 # Loyihani klonlash
 git clone <repo-url>
-cd maxplast
+cd metall_basa
 
 # .env faylini sozlash
 cp .env.example .env
@@ -92,12 +92,9 @@ cp .env.example .env
 # Docker konteynerlarini ishga tushirish
 docker-compose up -d
 
-# API: http://localhost:8917
-# Docs: http://localhost:8917/docs
-# Frontend: http://localhost:3947
-# Telegram bot: http://localhost:8923
-# Backup: http://localhost:8743
-# pgAdmin: http://localhost:5393 (ixtiyoriy)
+# API: http://localhost:8000
+# Docs: http://localhost:8000/docs
+# pgAdmin: http://localhost:5050 (ixtiyoriy)
 ```
 
 ### Development uchun pgAdmin bilan:
@@ -121,10 +118,10 @@ chmod +x fix_db_password.sh
 #### 2-usul: Qo'lda tuzatish
 ```bash
 # 1. PostgreSQL parolini yangilash
-docker exec -it maxplast_db psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+docker exec -it metall_basa_db psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
 # 2. API ni qayta ishga tushirish
-docker restart maxplast_api
+docker restart metall_basa_api
 ```
 
 #### 3-usul: Ma'lumotlarni o'chirmasdan to'liq reset
@@ -142,20 +139,20 @@ docker-compose up -d
 
 ### Health check
 ```bash
-curl http://localhost:8917/health
+curl http://localhost:8000/health
 # Javob: {"status": "healthy", "database": "connected"}
 ```
 
 ### Loglarni ko'rish
 ```bash
-docker logs -f maxplast_api
-docker logs -f maxplast_db
+docker logs -f metall_basa_api
+docker logs -f metall_basa_db
 ```
 
 ## 📁 Loyiha strukturasi
 
 ```
-maxplast/
+metall_basa/
 ├── docker-compose.yml
 ├── .env.example
 ├── .env
@@ -201,8 +198,8 @@ maxplast/
 
 ## 🤝 Muallif
 
-Max Plast ERP Team
+Metall Basa ERP Team
 
 ---
 
-© 2026 Max Plast. Barcha huquqlar himoyalangan.
+© 2024 Metall Basa. Barcha huquqlar himoyalangan.

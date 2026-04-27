@@ -9,7 +9,7 @@
 
 set -e
 
-echo "🔧 Max Plast - Database Password Fix"
+echo "🔧 Metall Basa - Database Password Fix"
 echo "======================================="
 
 # Get password from .env file
@@ -26,7 +26,7 @@ echo "   Password: $POSTGRES_PASSWORD"
 echo ""
 
 # Check if db container is running
-if ! docker ps | grep -q maxplast_db; then
+if ! docker ps | grep -q metall_basa_db; then
     echo "❌ Database container is not running!"
     echo "   Starting containers..."
     docker-compose up -d db
@@ -36,7 +36,7 @@ fi
 echo "🔄 Updating PostgreSQL password..."
 
 # Update password in PostgreSQL
-docker exec -i maxplast_db psql -U postgres -d postgres <<EOF
+docker exec -i metall_basa_db psql -U postgres -d postgres <<EOF
 ALTER USER $POSTGRES_USER WITH PASSWORD '$POSTGRES_PASSWORD';
 EOF
 
@@ -49,7 +49,7 @@ fi
 
 echo ""
 echo "🔄 Restarting API container..."
-docker restart maxplast_api
+docker restart metall_basa_api
 
 echo ""
 echo "⏳ Waiting for API to be ready..."
@@ -57,7 +57,7 @@ sleep 10
 
 # Check health
 echo "🔍 Checking API health..."
-HEALTH=$(curl -s http://localhost:${API_PORT:-8917}/health 2>/dev/null || echo "failed")
+HEALTH=$(curl -s http://localhost:${API_PORT:-8000}/health 2>/dev/null || echo "failed")
 
 if echo "$HEALTH" | grep -q "healthy"; then
     echo "✅ API is healthy!"
@@ -65,5 +65,5 @@ if echo "$HEALTH" | grep -q "healthy"; then
     echo "🎉 Fix completed successfully!"
 else
     echo "⚠️  API health check returned: $HEALTH"
-    echo "   Try running: docker logs maxplast_api"
+    echo "   Try running: docker logs metall_basa_api"
 fi
